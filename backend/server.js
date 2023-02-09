@@ -22,6 +22,7 @@ mongoose
 
 const app = express();
 
+// formdata in the request body converted in to the json object
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -32,6 +33,7 @@ app.use("/api/seed", seedRouter);
 app.use("/api/services", serviceRouter);
 app.use("/api/users", userRouter);
 app.use("/api/employees", employeeRouter);
+
 // error handling middleware
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });

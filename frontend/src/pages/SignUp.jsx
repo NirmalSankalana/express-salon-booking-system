@@ -26,18 +26,24 @@ export default function SignIn() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector((state) => state.user);
+    const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (password !== confirmPassword) {
+            toast.error("Password Do Not Match")
+        }
         try {
-            const { data } = await Axios.post('/api/users/signin', {
+            const { data } = await Axios.post('/api/users/signup', {
+                name,
                 email,
                 password
             })
             dispatch(setUser(data))
             navigate(redirect || '/')
-            toast.success("You are successfully Signed in")
+            toast.success("You are successfully Signed up")
             console.log(data)
         } catch (err) {
             toast.error(getError(err))
@@ -54,7 +60,7 @@ export default function SignIn() {
     return (
         <ThemeProvider theme={theme}>
             <Helmet>
-                <title>Sign In</title>
+                <title>Sign Up</title>
             </Helmet>
 
             <Container component="main" maxWidth="xs" sx={{ height: "100vh", display: 'flex', alignItems: 'center' }}>
@@ -70,9 +76,21 @@ export default function SignIn() {
 
                     <Button component={Link} to="/"><LogoBlack /></Button>
                     <Typography component="h2" variant="h5">
-                        Sign in
+                        Sign Up
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                        <TextField
+                            sx={{ borderColor: "#000" }}
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="name"
+                            label="Name"
+                            name="name"
+
+                            autoFocus
+                            onChange={(e) => setName(e.target.value)}
+                        />
                         <TextField
                             sx={{ borderColor: "#000" }}
                             margin="normal"
@@ -95,6 +113,17 @@ export default function SignIn() {
                             id="password"
                             autoComplete="current-password"
                             onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="confirmPassword"
+                            label="confirm Password"
+                            type="password"
+                            id="confirmPassword"
+                            autoComplete="current-password"
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                         {/* <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}

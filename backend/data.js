@@ -89,13 +89,13 @@ const data = {
   ],
   users: [
     {
-      name: "Nirmal",
+      name: "Nirmal Sankalana",
       email: "sankalana.nirmal@gmail.com",
       password: bcrypt.hashSync("azOLe@123", salt),
       isAdmin: true,
     },
     {
-      name: "Anuththara",
+      name: "Anuththara Dilrukshi",
       email: "anuththarad@eyepax.com",
       password: bcrypt.hashSync("anu@123", salt),
       isAdmin: false,

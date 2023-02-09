@@ -17,6 +17,7 @@ export const ServiceCard = (props) => {
                         height="200"
                         // image={require(props.image)}
                         image={require(`../images/s${props.image}.jpg`)}
+                        // src = {``}
                         alt={props.name}
                     />
                     <CardContent sx={{ maxHeight: "7.5rem", overflow: "hidden" }}>

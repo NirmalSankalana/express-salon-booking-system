@@ -5,8 +5,7 @@ const cartSlice = createSlice({
   initialState: {
     cart: [],
     employee: "",
-    date: "",
-    time: "",
+    dateTime: {},
   },
   reducers: {
     addToCart: (state, action) => {
@@ -26,9 +25,25 @@ const cartSlice = createSlice({
       );
       state.cart = removeService;
     },
+    addEmployeeToBooking: (state, action) => {
+      state.employee = action.payload;
+    },
+    addDateTimeToBooking: (state, action) => {
+      state.dateTime = action.payload;
+    },
+    clearCart: (state, action) => {
+      state.cart = [];
+      // state.employee = "";
+      // state.dateTime = {};
+    },
   },
 });
 
 export const cartReducer = cartSlice.reducer;
-export const { addToCart, removeFromCart, setEmployeeToAService } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  addEmployeeToBooking,
+  addDateTimeToBooking,
+  clearCart,
+} = cartSlice.actions;
