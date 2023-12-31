@@ -1,0 +1,12 @@
+Booking:[
+    {
+        bookingID: String,
+        clientName: String,
+        Date: Date
+        StartingTime: {
+            hour: number,
+            minutes: number,
+        }
+        EstimatedTime: number
+    }
+]
