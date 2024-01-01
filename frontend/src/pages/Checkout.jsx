@@ -25,8 +25,8 @@ import {
 } from "../redux/features/cartSlice";
 
 export const Checkout = () => {
+    //useSelector hook allows access to the state stored in a Redux store
     const cart = useSelector((state) => state.cart);
-
     const employees = useSelector((state) => state.employees);
     const [dateTime, setDateTime] = useState(cart.dateTime);
     const [serviceProvicer, setServiceProvider] = useState(cart.employee);

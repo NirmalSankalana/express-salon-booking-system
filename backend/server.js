@@ -6,6 +6,7 @@ import seedRouter from "./routes/seedRoutes.js";
 import serviceRouter from "./routes/serviceRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import employeeRouter from "./routes/employeeRoutes.js";
+import bookingRouter from "./routes/bookingRoutes.js";
 
 // fetch env from the envfile
 dotenv.config();
@@ -33,6 +34,7 @@ app.use("/api/seed", seedRouter);
 app.use("/api/services", serviceRouter);
 app.use("/api/users", userRouter);
 app.use("/api/employees", employeeRouter);
+app.use("/api/booking", bookingRouter);
 
 // error handling middleware
 app.use((err, req, res, next) => {
