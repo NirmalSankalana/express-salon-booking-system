@@ -24,10 +24,10 @@ const bookingSchema = new mongoose.Schema({
   startingTime: { type: Date, required: true },
   endingTime: { type: Date, required: true },
   isPaid: { type: Boolean, default: false },
-  paidAt: { type: Date },
 });
 
 // Check and reserve a time slot
+// Async function always return a promise; await waits promise until promise settles and return its result
 bookingSchema.statics.reserveTimeSlot = async function (bookingData) {
   const { employee, startingTime, endingTime } = bookingData;
 
@@ -56,7 +56,6 @@ bookingSchema.statics.reserveTimeSlot = async function (bookingData) {
 
   const booking = new this(bookingData);
   await booking.save();
-
   return booking;
 };
 
