@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { NavBar } from "../components/NavBar";
 import { Container } from "@mui/system";
 import { AddedServiceCard } from "../components/AddedServiceCard";
@@ -22,10 +23,12 @@ import { getEmployees } from "../redux/features/employeeSlice";
 import {
     addDateTimeToBooking,
     addEmployeeToBooking,
+    clearCart,
 } from "../redux/features/cartSlice";
 
 export const Checkout = () => {
-    //useSelector hook allows access to the state stored in a Redux store
+    //useSelector hook allows access(subscribe) to the state stored in a Redux store
+    // When an action is dispatched, useSelector() will do a reference comparison of the previous selector result value and the current result value. If they are different, the component will be forced to re-render.
     const cart = useSelector((state) => state.cart);
     const employees = useSelector((state) => state.employees);
     const [dateTime, setDateTime] = useState(cart.dateTime);
@@ -34,6 +37,7 @@ export const Checkout = () => {
     console.log("service provider:", serviceProvicer);
     const params = useParams();
     const { id } = params;
+    // use dispatch returns a reference to the dispatch function from the Redux store.
     const dispatch = useDispatch();
     const navigate = useNavigate()
 
@@ -57,10 +61,27 @@ export const Checkout = () => {
         return total;
     };
 
-    const bookNowHandler = () => {
-        navigate('/signin?redirect=/booking')
-        dispatch(addDateTimeToBooking(dateTime))
-        dispatch(addEmployeeToBooking(serviceProvicer))
+    const bookNowHandler = async () => {
+        try {
+            const bookingData = {
+                client: '6592cc665e54392a7bfbf4db',
+                bookedServices: cart.cart.map(service => ({ service: service._id })),
+                employee: serviceProvicer,
+                price: getTotalPrice(),
+                startingTime: dayjs(dateTime).format('YYYY-MM-DDTHH:mm:ss'),
+                endingTime: dayjs(dateTime).add(getTotalTime(), 'minutes').format('YYYY-MM-DDTHH:mm:ss'),
+                isPaid: false,
+                paidAt: null,
+            };
+
+            const response = await axios.post('/api/booking', bookingData);
+
+            console.log('Booking successful:', response.data);
+
+            dispatch(clearCart());
+        } catch (error) {
+            console.error("Booking Failed: ", error.message);
+        }
     }
 
 

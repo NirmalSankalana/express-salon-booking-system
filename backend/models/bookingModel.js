@@ -17,8 +17,7 @@ const bookingSchema = new mongoose.Schema({
   employee: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Employee",
-    required: true,
-    unique: true,
+    required: true
   },
   price: { type: Number, required: true },
   startingTime: { type: Date, required: true },
