@@ -13,8 +13,6 @@ export const NavBar = () => {
     const dispatch = useDispatch()
     const cart = useSelector((state) => state.cart);
     const user = useSelector((state) => state.user);
-    console.log("user", user.userObject);
-    console.log(cart);
     const getTotalTime = () => {
         let total = 0;
         cart.cart.forEach((service) => {

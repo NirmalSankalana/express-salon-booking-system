@@ -5,7 +5,6 @@ export const getEmployees = createAsyncThunk(
   "employees/getEmployees",
   async () => {
     const fetchedEmployees = await axios.get("/api/employees/");
-    console.log(fetchedEmployees.data);
     return fetchedEmployees.data;
   }
 );

@@ -44,7 +44,6 @@ export default function SignIn() {
             dispatch(setUser(data))
             navigate(redirect || '/')
             toast.success("You are successfully Signed up")
-            console.log(data)
         } catch (err) {
             toast.error(getError(err))
         }

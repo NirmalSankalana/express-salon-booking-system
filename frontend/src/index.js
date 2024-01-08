@@ -8,6 +8,7 @@ import store from "./redux/store";
 import { saveState } from "./redux/browserStorage";
 import { debounce } from "@mui/material";
 import { HelmetProvider } from "react-helmet-async";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 // here we subscribe to the store changes
@@ -22,7 +23,9 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <HelmetProvider>
-        <App />
+        <PayPalScriptProvider deferLoading={true}>
+          <App />
+        </PayPalScriptProvider>
       </HelmetProvider>
     </Provider>
   </React.StrictMode>

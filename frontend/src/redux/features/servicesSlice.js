@@ -5,7 +5,6 @@ export const getServices = createAsyncThunk(
   "services/getServices",
   async () => {
     const fetchedServices = await axios.get("/api/services");
-    console.log(fetchedServices.data);
     return fetchedServices.data;
   }
 );

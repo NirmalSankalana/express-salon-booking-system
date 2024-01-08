@@ -19,10 +19,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { getEmployees } from "../redux/features/employeeSlice";
 import {
-    addDateTimeToBooking,
-    addEmployeeToBooking,
     clearCart,
 } from "../redux/features/cartSlice";
 
@@ -33,8 +32,6 @@ export const Checkout = () => {
     const employees = useSelector((state) => state.employees);
     const [dateTime, setDateTime] = useState(cart.dateTime);
     const [serviceProvicer, setServiceProvider] = useState(cart.employee);
-    console.log("datetime:", dateTime);
-    console.log("service provider:", serviceProvicer);
     const params = useParams();
     const { id } = params;
     // use dispatch returns a reference to the dispatch function from the Redux store.
@@ -44,7 +41,7 @@ export const Checkout = () => {
     useEffect(() => {
         dispatch(getEmployees());
     }, [id]);
-    console.log(cart)
+
     const getTotalPrice = () => {
         let total = 0;
         cart.cart.forEach((service) => {
@@ -71,10 +68,14 @@ export const Checkout = () => {
                 startingTime: dayjs(dateTime).format('YYYY-MM-DDTHH:mm:ss'),
                 endingTime: dayjs(dateTime).add(getTotalTime(), 'minutes').format('YYYY-MM-DDTHH:mm:ss'),
                 isPaid: false,
-                paidAt: null,
+                paidAt: false,
             };
 
             const response = await axios.post('/api/booking', bookingData);
+
+            if (response.data.status === "success") {
+                console.log("Hipip Horaay");
+            }
 
             console.log('Booking successful:', response.data);
 

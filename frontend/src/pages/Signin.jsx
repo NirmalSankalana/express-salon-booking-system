@@ -22,7 +22,6 @@ export default function SignIn() {
     const { search } = useLocation()
     const redirectInUrl = new URLSearchParams(search).get('redirect');
     const redirect = redirectInUrl ? redirectInUrl : '/'
-    console.log(redirect)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector((state) => state.user);
@@ -38,7 +37,7 @@ export default function SignIn() {
             dispatch(setUser(data))
             navigate(redirect || '/')
             toast.success("You are successfully Signed in")
-            console.log(data)
+
         } catch (err) {
             toast.error(getError(err))
         }

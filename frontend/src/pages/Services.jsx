@@ -14,7 +14,6 @@ export const Services = () => {
     const dispatch = useDispatch()
     const params = useParams()
     const { _id } = params
-    console.log(loading)
     // const [services, setServices] = useState([]);
     useEffect(() => {
         // const fetchData = async () => {
